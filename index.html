@@ -340,6 +340,45 @@
     margin-top: 28px; padding: 14px 16px; border: 1px dashed var(--m-border); border-radius: 12px;
     background: color-mix(in srgb, var(--m-accent) 4%, transparent); color: var(--m-ink-2); font-size: .86rem; line-height: 1.55;
   }
+
+  /* Inputs / Seller SVC */
+  .btn.active-nav { border-color: var(--accent); color: var(--accent); background: rgba(108,140,255,0.12); }
+  .inp-hero { display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start; justify-content:space-between; }
+  .inp-meta-pills { display:flex; flex-wrap:wrap; gap:8px; }
+  .gap-banner {
+    margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; font-size: 13.5px; line-height: 1.5;
+  }
+  .gap-banner.warn { background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.45); color: #f5c95f; }
+  .gap-banner.bad { background: rgba(229,72,77,0.12); border: 1px solid rgba(229,72,77,0.45); color: #ff8a8e; }
+  .gap-banner.ok { background: rgba(62,207,142,0.1); border: 1px solid rgba(62,207,142,0.35); color: var(--high); }
+  .inp-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .inp-slot {
+    background: #12162a; border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 16px;
+  }
+  .inp-slot h3 { margin: 0 0 8px; font-size: 14px; }
+  .inp-slot .slot-code { font-size: 11px; color: var(--muted); font-family: ui-monospace, Menlo, Consolas, monospace; }
+  .inp-bullets { margin: 8px 0 0; padding-left: 18px; font-size: 13px; color: #d8dcf5; line-height: 1.45; }
+  .inp-bullets li { margin-bottom: 4px; }
+  .inp-pre {
+    margin: 8px 0 0; white-space: pre-wrap; font-size: 12.5px; line-height: 1.45; color: #d8dcf5;
+    max-height: 280px; overflow: auto; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px 12px;
+  }
+  .inp-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 8px; }
+  .inp-table th, .inp-table td {
+    text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--card-border); vertical-align: top;
+  }
+  .inp-table th { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .badge-miss { color: var(--medium); font-style: italic; border: 1px dashed rgba(245,201,95,0.4); padding: 1px 6px; border-radius: 4px; }
+  .badge-gap { display:inline-flex; align-items:center; gap:4px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+  .badge-gap.warn { background: rgba(245,166,35,0.15); color: var(--medium); border: 1px solid rgba(245,166,35,0.4); }
+  .badge-gap.bad { background: rgba(229,72,77,0.15); color: var(--low); border: 1px solid rgba(229,72,77,0.4); }
+  .badge-gap.ok { background: rgba(62,207,142,0.15); color: var(--high); border: 1px solid rgba(62,207,142,0.4); }
+  .cta-empty {
+    padding: 28px 20px; text-align: center; border: 1px dashed var(--card-border); border-radius: 12px;
+    background: #12162a; color: var(--muted); font-size: 14px; line-height: 1.55;
+  }
+  .cta-empty code { color: var(--accent); }
+
   .c-mid { color: var(--medium); } .c-lo { color: var(--low); } .c-ok { color: var(--high); }
 </style>
 </head>
@@ -355,7 +394,9 @@
   </div>
   <div class="nav-row" id="nav-row">
     <a class="btn ghost" href="#home" id="btn-back" style="display:none">← Voltar à lista</a>
-    <a class="btn ghost" href="#params">Ver parâmetros do motor</a>
+    <a class="btn ghost" href="#home" data-nav="home">Home</a>
+    <a class="btn ghost" href="#inputs" data-nav="inputs">Inputs</a>
+    <a class="btn ghost" href="#params" data-nav="params">Parâmetros do motor</a>
   </div>
 </div>
 
@@ -365,6 +406,9 @@
 
   <!-- ══ VISTA DETALHE ══ -->
   <div id="view-detail" class="view"></div>
+
+  <!-- ══ VISTA INPUTS (Seller / SVC) ══ -->
+  <div id="view-inputs" class="view"></div>
 </div>
 
 <!-- ══ Anexo motor ══ -->
@@ -466,6 +510,40 @@
 </div>
 
 <script>
+const SELLER_PACK_META = {"path": "research-runs/smoke-sinais-20260724/input/seller-gtm-pack.json", "reused_in": "smoke-completao-20260724 (meta.seller_gtm_pack_reused_from)", "input_mode": "gtm_material"};
+const SELLER_PACK = {
+  "service_context": {
+    "SVC_PROVIDER_IDENTITY": "- FitBank: provedor de infraestrutura financeira embarcada (BaaS) para ERPs e BPOs de gestão.\n- Golden Circle (Why): transformar o módulo financeiro do ERP/BPO em motor de eficiência e receita; eliminar atrasos de conciliação/CNAB; permitir que ERP/BPO capturem valor no fluxo financeiro em vez de terceirizar margem para bancos/intermediários.\n- Headline de proposta de valor: \"Conta digital e serviços financeiros dentro do ERP e do BPO, com conciliação automática em tempo real e monetização do fluxo financeiro.\"\n- Diferenciais declarados: receita com transações (monetização nativa) · informação em tempo real (conciliação automática e imediata com status detalhado) · cadastro/ativação online · experiência financeira unificada ao ERP · 100% de cobertura de pagamentos e transações · integração simples e única (API sem CNAB) ou encaixe de telas prontas · canais prontos (App e Bankline) · redução de custo operacional e manutenção técnica mínima.",
+    "SVC_OFFERINGS_BY_VERTICAL": "- Gestão - ERPs e BPO (ERPBank):\n- Conta digital integrada ao ERP (PJ completa), com extrato, comprovantes e fluxo de autorização.\n- Cobranças e recebimentos: Pix, QR Code, boleto e variações (inclui recorrência via Pix Automático quando aplicável).\n- Pagamentos: boletos, guias, tributos, contas de consumo e transferências, com retorno e comprovação.\n- Conciliação automática e imediata (status detalhado) e webhooks/retornos em tempo real.\n- Canais prontos: App, Bankline e telas embutíveis para encaixar na jornada do ERP.\n- Integração via API (sem CNAB) com sandbox, exemplos e go-live em ondas.",
+    "SVC_PERSONA_TARGETING": "Best:\n- Sócio/Fundador do ERP ou BPO\n- CEO/COO/CFO\n\nGood:\n- VP/Diretor/Head de Produto\n- VP/Diretor/Head de Tecnologia/Integrações\n- VP/Diretor/Head Financeiro/Tesouraria\n\nFair:\n- Gerente de Operações/Backoffice\n- Gerente de Implantação/Projetos\n\nAvoid:\n- [MISSING] (documento não especifica anti-personas explícitas)",
+    "SVC_KEYWORDS": "- CNAB\n- conciliação automática\n- embedded finance\n- conta digital\n- Pix Automático\n- split\n- BaaS (Banking as a Service)\n- boleto híbrido\n- API sem CNAB\n- cobrança recorrente\n- ERP Banking\n- techfin\n- backoffice financeiro\n- Bankline\n- onboarding digital",
+    "SVC_CORE_PROBLEM_FOCUS": "- Conciliação lenta e dependente de processamento em lote (CNAB), reduzindo visibilidade e velocidade de decisão.\n- Dados financeiros chegam atrasados (D+1/D+2) e inviabilizam operação em tempo real.\n- Alto custo e complexidade para manter integrações CNAB e variações por banco.\n- Silos de dados: financeiro fora do ERP, exigindo reconciliação manual.\n- Processos manuais repetitivos (importar arquivo, casar retorno, baixar títulos, gerar comprovante).\n- Impossibilidade de monetizar o módulo financeiro: o ERP entrega valor, mas a margem fica com bancos.\n- Onboarding e ativação de clientes lento e friccionado, travando crescimento do ERP/BPO.\n- Dificuldade para escalar operação de BPO (mais clientes implica mais pessoas e mais planilhas).\n- Aprovações e alçadas de pagamento fora do sistema (WhatsApp, e-mail, planilha), gerando risco e atraso.\n- Falta de controle sobre inadimplência e falhas de cobrança recorrente sem retry.",
+    "SVC_CORE_SOLUTIONS": "- Conciliação automática e imediata com status detalhado e eventos em tempo real.\n- Retornos online em tempo real (autorização, confirmação, comprovante, extrato).\n- Integração via API única (sem CNAB), com sandbox e go-live em ondas.\n- Experiência financeira unificada ao ERP (mesmo ambiente).\n- Automação ponta a ponta com baixa automática e trilhas de auditoria.\n- Arquitetura modular para orquestrar fluxos/regras via API (escrow, split, múltiplas carteiras).\n- Cadastro e ativação online.\n- Operação escalável com automação e conciliação implícita.\n- Fluxos de autorização embutidos com registros auditáveis.\n- Retentativa inteligente de cobranças recorrentes.\n- Canais prontos (App, Bankline, telas embutíveis).",
+    "SVC_UVP_ARSENAL": "persona: Sócio/Fundador & C-Level (CEO/COO/CFO)\ntarget_job_titles: Sócio/Fundador do ERP ou BPO, CEO, COO, CFO\nuvp_title: Capture valor no fluxo financeiro que já passa pelo seu ERP\nuvp_statement: Hoje o ERP/BPO entrega valor mas a margem fica com bancos e intermediários; com infraestrutura financeira embarcada, cada transação vira nova linha de receita, sem abrir mão do controle da experiência do cliente.\nassociated_solution: Conta digital integrada ao ERP, monetização nativa do fluxo financeiro, canais prontos (App/Bankline)\npain_points_solved:\nImpossibilidade de monetizar o módulo financeiro (margem fica com bancos)\nAlta dependência de intermediários (bancos, gateways, VAN), elevando tarifas\nBaixa captura de valor no fluxo financeiro por operar só como 'mensageiro' (CNAB) sem governança\n\n---\n\npersona: Tecnologia/Produto (CTO/Head Produto/Tecnologia/Integrações)\ntarget_job_titles: VP/Diretor/Head de Produto, VP/Diretor/Head de Tecnologia/Integrações\nuvp_title: Substitua a manutenção de CNAB por uma API única e acelere o roadmap\nuvp_statement: Cada banco integrado via CNAB é um novo custo de manutenção; com integração única via API (sem CNAB), sandbox e telas prontas, o time de produto lança serviços financeiros mais rápido e sem depender de padrões legados.\nassociated_solution: Integração via API (sem CNAB), arquitetura modular, telas embutíveis, sandbox\npain_points_solved:\nAlto custo e complexidade para manter integrações CNAB e variações por banco\nSilos de dados: financeiro fora do ERP, exigindo reconciliação manual\nBaixa flexibilidade para produtos financeiros mais completos (escrow, split, múltiplas carteiras)\nERP perde oportunidades de inovação por depender de padrões limitados e integrações legadas\nDificuldade de criar ofertas por nicho (imobiliário, educação, saúde) com jornadas específicas\nFalta de padronização entre canais (app, internet banking, API)\nOperação multiempresa e multicliente (BPO) com dispersão de contas e acessos\nFalhas de comunicação entre ERP, banco e cliente final, causando suporte e SLA ruim\n\n---\n\npersona: Financeiro/Operações/Implantação (Tesouraria/Backoffice/Projetos)\ntarget_job_titles: VP/Diretor/Head Financeiro/Tesouraria, Gerente de Operações/Backoffice, Gerente de Implantação/Projetos\nuvp_title: Feche o mês em horas, não em dias\nuvp_statement: Conciliação automática e imediata elimina a espera por arquivo de retorno, reduz processos manuais e acelera onboarding de novos clientes, sem planilha e sem aprovação por WhatsApp.\nassociated_solution: Conciliação automática e imediata, cadastro/ativação online, fluxos de autorização embutidos, retentativa inteligente de cobrança recorrente\npain_points_solved:\nConciliação lenta e dependente de processamento em lote (CNAB)\nDados financeiros chegam atrasados (D+1/D+2)\nProcessos manuais repetitivos (importar arquivo, casar retorno, baixar títulos, gerar comprovante)\nOnboarding e ativação de clientes lento e friccionado\nDificuldade para escalar operação de BPO (mais clientes implica mais pessoas e mais planilhas)\nBPO não consegue consumir dados do cliente de forma estruturada e precisa pedir tudo manualmente\nAprovações e alçadas de pagamento fora do sistema (WhatsApp, e-mail, planilha)\nRisco operacional por pagamentos duplicados, fora de prazo ou para favorecido errado\nDificuldade para conciliar cobranças Pix/boletos com o título certo\nExperiência ruim do cliente final ao pagar e enviar comprovante manualmente\nFalta de controle sobre inadimplência e falta de previsibilidade do contas a receber\nChurn e reclamação por falhas de cobrança recorrente e falta de retry\nVisibilidade insuficiente para auditoria (quem pagou, quando, como, para quem)\nRotinas de fechamento mensal lentas (conciliação, baixa, relatórios, repasses)\nDificuldade em pagar guias, tributos e contas de consumo com confirmação imediata\nImplantação longa e risco de projeto em integrações financeiras\nTempo alto para ativar novos clientes e colocar para rodar o financeiro\nErros e retrabalho por conciliar manualmente diferentes métodos (Pix, boleto, transferências)",
+    "SVC_CASE_LIBRARY": "caseName: ERP PME\nsegment: ERP PME\ncoreNeed: Precisava de conta digital PJ completa dentro do ERP, com cobrança, pagamentos e extrato unificados.\ncoreSolution: Conta digital integrada, cobrança, pagamentos, extrato unificado\nimpact: Redução de manualidade e visão financeira unificada dentro do ERP (inferred_generic)\n\n---\n\ncaseName: ERP Imobiliário/Condominial\nsegment: ERP Imobiliário/Condominial\ncoreNeed: Precisava de cobrança de condomínio e aluguel e pagamento de despesas, com conciliação automática.\ncoreSolution: Cobrança recorrente + conciliação automática\nimpact: Menos trabalho manual na baixa de aluguéis/condomínios (inferred_generic)\n\n---\n\ncaseName: ERP Saúde\nsegment: ERP Saúde\ncoreNeed: Precisava de parcelamentos com notificação e cobrança digital, com confirmação e comprovante.\ncoreSolution: Cobrança digital com notificação e confirmação automática\nimpact: Redução de inadimplência em parcelamentos de clínicas/laboratórios (inferred_generic)\n\n---\n\ncaseName: ERP Educação\nsegment: ERP Educação\ncoreNeed: Precisava de emissão de faturas e conciliação automática, com redução de inadimplência e retrabalho.\ncoreSolution: Emissão de faturas + conciliação automática\nimpact: Menor inadimplência e retrabalho em cobrança de mensalidades (inferred_generic)\n\n---\n\ncaseName: ERP Varejo\nsegment: ERP Varejo/Distribuição\ncoreNeed: Precisava de cobrança e conciliação online via Pix/QR Code e boleto, com relatórios por loja/filial.\ncoreSolution: Cobrança Pix/QR/boleto + conciliação por filial\nimpact: Visibilidade financeira por loja/PDV em tempo real (inferred_generic)\n\n---\n\ncaseName: BPO Financeiro\nsegment: BPO Financeiro\ncoreNeed: Precisava de operação padronizada para múltiplos clientes no mesmo ambiente, com aprovações, comprovantes e auditoria.\ncoreSolution: Fluxos de autorização embutidos + trilhas de auditoria multiempresa\nimpact: Padronização e auditabilidade em operação multicliente (inferred_generic)\n\n---\n\ncaseName: BPO Contábil\nsegment: BPO Contábil\ncoreNeed: Precisava de ingestão automática de extrato/comprovantes e baixa de títulos, reduzindo planilhas e pedidos ao cliente.\ncoreSolution: Ingestão automática de dados financeiros + baixa automática de títulos\nimpact: Menos planilhas e menos pedidos manuais de documento ao cliente (inferred_generic)",
+    "SVC_RESEARCH_FOCUS_AREAS": "- Menções a CNAB / integração bancária legada em vagas, changelogs, central de ajuda do prospect.\n- Anúncios de \"conta digital\", \"Pix nativo\", \"split\", \"embedded finance\" no site/produto do prospect (indicam maturidade e possível overlap com a oferta do vendedor).\n- Vagas para funções de \"ERP Banking\", \"Parcerias Fintech\", \"Pagamentos\", \"Head de Produto Financeiro\".\n- Notícias sobre expansão de base de clientes, rodadas de investimento, adequação a Pix Automático.\n- Reclamações de clientes finais sobre cobrança/pagamento manual, comprovante ou conciliação falha.\n- Estrutura societária / grupo controlador do prospect (para avaliar viabilidade comercial, não só fit).",
+    "SVC_STRATEGIC_LENS": "- Priorize evidência de proximidade real ao fluxo financeiro do cliente final (quem já cobra/paga/recebe), não apenas \"tem módulo financeiro\" no papel.\n- Trate prospect pure-play contábil/fiscal (só apuração, SPED, obrigações) ou só emissor de NF-e sem receber/pagar como fora do ICP central.\n- Trate parceria estrutural com banco/fintech de peso (ou instituição financeira própria) como sinal de baixa viabilidade comercial, não de baixo fit — são coisas diferentes.\n- Pertencer a um grupo/holding grande sem ligação com concorrência de pagamentos é só informativo, nunca motivo automático de desqualificação.\n- Priorize evidência de dor explícita de CNAB/conciliação sobre menções genéricas de \"modernização\" ou \"transformação digital\".",
+    "SVC_CASE_MATCH_DRIVERS": "- Segmento do prospect (ERP PME, Imobiliário, Saúde, Educação, Varejo, BPO Contábil, BPO Financeiro, BPO Folha/Tributos).\n- Dor central identificada (conciliação, cobrança recorrente, onboarding, inadimplência, monetização).\n- Nível de maturidade do módulo financeiro do prospect (0-3, ver signals/company/erp-bpo.md).",
+    "SVC_LANGUAGE_RULES": "[MISSING]",
+    "meta": {
+      "vertical_id": "erp-bpo",
+      "missing_policy": "Slots/subcampos sem evidência no documento marcados [MISSING]; nenhum número, nome de cliente ou case específico foi inventado — apenas os 7 exemplos de segmento e as 29 dores explicitamente listadas no documento original.",
+      "determinism_notes": "SVC_UVP_ARSENAL distribui as 29 dores do documento em 3 blocos de persona por julgamento de negócio (C-Level / Tecnologia-Produto / Financeiro-Operações-Implantação); o documento original não pré-associa dor a persona explicitamente."
+    },
+    "input_mode": "gtm_material",
+    "confirmation": {
+      "required": true,
+      "confirmed_by_user": false,
+      "confirmed_at": null,
+      "slots_pending_confirmation": [
+        "SVC_PERSONA_TARGETING",
+        "SVC_UVP_ARSENAL"
+      ],
+      "notes": "Pacote extraído de ICP_GTM-FitBank-ERPs_BPO-20250919.docx (Desktop do usuário) via document.xml, por causa de tabelas aninhadas que o parser direto de .docx não conseguiu ler. Usado como EXEMPLO de smoke test (modo gtm_material) — não confirmado pelo dono do GTM; antes de rodar um lote real de prospecção, validar especialmente o agrupamento de dores por persona (SVC_UVP_ARSENAL) e a classificação Best/Good/Fair (SVC_PERSONA_TARGETING), que envolveram julgamento de negócio não explícito no documento original."
+    }
+  }
+};
+
 const RUN = {
   companies: [
     {
@@ -6676,18 +6754,304 @@ function renderDetail(c) {
   `;
 }
 
+
+function bulletsFromSvc(text) {
+  if (text == null || text === "") return [];
+  const raw = String(text).trim();
+  if (/^\[MISSING/i.test(raw)) return [{ missing: true, text: raw }];
+  return raw.split(/\n+/).map(l => l.replace(/^\s*[-•]\s*/, "").trim()).filter(Boolean)
+    .map(t => ({ missing: /^\[MISSING/i.test(t), text: t }));
+}
+
+function renderBulletList(text) {
+  const items = bulletsFromSvc(text);
+  if (!items.length) return `<p class="missing" style="margin:8px 0 0">Slot vazio</p>`;
+  return `<ul class="inp-bullets">${items.map(i =>
+    i.missing
+      ? `<li><span class="badge-miss">${esc(i.text)}</span></li>`
+      : `<li>${esc(i.text)}</li>`
+  ).join("")}</ul>`;
+}
+
+function splitBlocks(text) {
+  if (!text) return [];
+  return String(text).split(/\n\s*---\s*\n/).map(b => b.trim()).filter(Boolean);
+}
+
+function parseKvBlock(block) {
+  const out = {};
+  let cur = null;
+  String(block).split(/\n/).forEach(line => {
+    const m = line.match(/^([a-zA-Z_]+):\s*(.*)$/);
+    if (m) {
+      cur = m[1];
+      out[cur] = m[2] || "";
+    } else if (cur != null) {
+      out[cur] = (out[cur] ? out[cur] + "\n" : "") + line;
+    }
+  });
+  return out;
+}
+
+function findMissings(svc) {
+  const misses = [];
+  const slots = [
+    "SVC_PROVIDER_IDENTITY","SVC_OFFERINGS_BY_VERTICAL","SVC_PERSONA_TARGETING","SVC_KEYWORDS",
+    "SVC_CORE_PROBLEM_FOCUS","SVC_CORE_SOLUTIONS","SVC_UVP_ARSENAL","SVC_CASE_LIBRARY",
+    "SVC_RESEARCH_FOCUS_AREAS","SVC_STRATEGIC_LENS","SVC_CASE_MATCH_DRIVERS","SVC_LANGUAGE_RULES"
+  ];
+  slots.forEach(k => {
+    const v = svc[k];
+    if (v == null || v === "" || String(v).includes("[MISSING")) misses.push(k);
+  });
+  return misses;
+}
+
+function renderInputs() {
+  const el = document.getElementById("view-inputs");
+  if (!el) return;
+  const pack = (typeof SELLER_PACK !== "undefined") ? SELLER_PACK : null;
+  const svc = pack && pack.service_context ? pack.service_context : null;
+  if (!svc) {
+    el.innerHTML = `<div class="card"><div class="section-title first">Inputs · Seller / SVC</div>
+      <div class="cta-empty">
+        <p style="margin:0 0 10px;color:var(--text);font-size:16px;font-weight:600">SVC não carregado</p>
+        <p style="margin:0">Não há seller GTM pack embutido neste dashboard.<br>
+        Rode <code>00-service-context</code> (fase b) e regenere o HTML com o pack em
+        <code>input/seller-gtm-pack.json</code> ou <code>input/service_context.json</code>.</p>
+      </div></div>`;
+    return;
+  }
+
+  const conf = svc.confirmation || {};
+  const meta = svc.meta || {};
+  const assetsKeyPresent = Object.prototype.hasOwnProperty.call(svc, "SVC_ASSETS");
+  const assets = Array.isArray(svc.SVC_ASSETS) ? svc.SVC_ASSETS : null;
+  const misses = findMissings(svc);
+  const creds = (assets || []).filter(a => a && a.asset_type === "credencial");
+  const hasCred = creds.length > 0;
+  const confirmed = conf.confirmed_by_user === true;
+
+  let banners = "";
+  if (!confirmed) {
+    banners += `<div class="gap-banner warn"><b>Pack não confirmado pelo usuário</b> ·
+      <code>confirmed_by_user: false</code>${conf.required ? " · confirmation.required" : ""}.
+      Slots pendentes: ${(conf.slots_pending_confirmation || []).map(s => `<code>${esc(s)}</code>`).join(", ") || "—"}.
+      Tratar como rascunho para lote real.</div>`;
+  }
+  if (!assetsKeyPresent) {
+    banners += `<div class="gap-banner bad"><b>Slot SVC_ASSETS ausente</b> — pack antigo sem o array tipado de ativos reais
+      (credencial, case, kpi, fato_datado…). Writer/auditor de messages ficarão sem lastro estruturado.
+      Re-rode <code>00-service-context</code> com schema atual.</div>`;
+  } else if (assets && assets.length === 0) {
+    banners += `<div class="gap-banner warn"><b>SVC_ASSETS: []</b> — nenhum ativo com lastro extraído do material.</div>`;
+  }
+  if (!hasCred) {
+    banners += `<div class="gap-banner bad"><b>Credencial em gap</b> — nenhum item <code>asset_type: credencial</code>
+      (autorização/licença/registro nomeado). Superlativos sem nome ≠ credencial.</div>`;
+  }
+  if (misses.length) {
+    banners += `<div class="gap-banner warn"><b>Campos [MISSING] / incompletos:</b>
+      ${misses.map(m => `<code>${esc(m)}</code>`).join(" · ")}</div>`;
+  }
+
+  const uvpBlocks = splitBlocks(svc.SVC_UVP_ARSENAL).map(b => {
+    const kv = parseKvBlock(b);
+    return `<div class="inp-slot">
+      <h3>${esc(kv.uvp_title || kv.persona || "UVP")}</h3>
+      <div class="slot-code">${esc(kv.persona || "")}</div>
+      <p style="margin:8px 0 0;font-size:13px;color:#d8dcf5">${esc(kv.uvp_statement || "")}</p>
+      <p style="margin:8px 0 0;font-size:12px;color:var(--muted)"><b>Solução:</b> ${esc(kv.associated_solution || "—")}</p>
+      <p style="margin:6px 0 0;font-size:12px;color:var(--muted)"><b>Cargos:</b> ${esc(kv.target_job_titles || "—")}</p>
+      ${kv.pain_points_solved ? `<div class="inp-pre">${esc(kv.pain_points_solved.trim())}</div>` : ""}
+    </div>`;
+  }).join("");
+
+  const caseBlocks = splitBlocks(svc.SVC_CASE_LIBRARY).map(b => {
+    const kv = parseKvBlock(b);
+    const impact = kv.impact || "";
+    const inferred = /inferred_generic/i.test(impact);
+    return `<tr>
+      <td><b>${esc(kv.caseName || "—")}</b><br><span style="color:var(--muted)">${esc(kv.segment || "")}</span></td>
+      <td>${esc(kv.coreNeed || "—")}</td>
+      <td>${esc(kv.coreSolution || "—")}</td>
+      <td>${inferred ? `<span class="badge-gap warn">inferred_generic</span> ` : ""}
+        ${esc(impact) || "—"}<br>
+        <span style="color:var(--muted);font-size:11px">allowed_for_copy: não (sem ativo tipado) · verification: pack texto</span>
+      </td>
+    </tr>`;
+  }).join("");
+
+  let assetsHtml = "";
+  if (!assetsKeyPresent) {
+    assetsHtml = `<div class="cta-empty" style="text-align:left">Pack sem slot <code>SVC_ASSETS</code>.
+      Tipos esperados: fato_datado, numero_verificavel, nome_produto, case, kpi, sinal_com_fonte,
+      vocabulario_lead, credencial, desarme, tarifa, mecanismo, reversao_de_risco.</div>`;
+  } else if (!assets.length) {
+    assetsHtml = `<p class="missing" style="margin:0">Array vazio — nenhum ativo real com lastro.</p>`;
+  } else {
+    assetsHtml = `<table class="inp-table"><tr>
+      <th>Tipo</th><th>Valor</th><th>Verificação</th><th>Copy</th><th>Fonte</th></tr>` +
+      assets.map(a => {
+        const okCopy = a.allowed_for_copy === true;
+        const st = a.verification_status || "—";
+        const stCls = st === "confirmed" ? "ok" : (st === "not_available" ? "bad" : "warn");
+        return `<tr>
+          <td><code>${esc(a.asset_type)}</code></td>
+          <td>${esc(a.value || "")}${a.verbatim ? `<div class="slot-code">verbatim: ${esc(a.verbatim)}</div>` : ""}
+            ${a.notes ? `<div style="color:var(--muted);font-size:11px;margin-top:4px">${esc(a.notes)}</div>` : ""}</td>
+          <td><span class="badge-gap ${stCls}">${esc(st)}</span></td>
+          <td>${okCopy ? '<span class="badge-gap ok">allowed</span>' : '<span class="badge-gap warn">blocked</span>'}</td>
+          <td class="slot-code">${esc(a.source_type || "")}<br>${esc(a.source_ref || "")}</td>
+        </tr>`;
+      }).join("") + `</table>`;
+  }
+
+  el.innerHTML = `
+    <div class="card">
+      <div class="inp-hero">
+        <div>
+          <div class="section-title first" style="margin:0">Inputs · Seller / SVC</div>
+          <p style="margin:8px 0 0;color:var(--muted);font-size:13.5px;line-height:1.5;max-width:720px">
+            Catálogo do vendedor usado nesta run (visão global — não por prospect). Conferir lacunas,
+            <code>[MISSING]</code>, credencial e <code>SVC_ASSETS</code> antes de outbound.
+          </p>
+        </div>
+        <div class="inp-meta-pills">
+          <span class="pill info small">mode: ${esc(svc.input_mode || "—")}</span>
+          <span class="pill ${confirmed ? "high" : "medium"} small">confirmed: ${confirmed ? "yes" : "no"}</span>
+          <span class="pill info small">vertical: ${esc(meta.vertical_id || "—")}</span>
+        </div>
+      </div>
+      <p style="margin:12px 0 0;font-size:12px;color:var(--muted)">
+        Fonte do pack: <code>${esc((typeof SELLER_PACK_META !== "undefined" && SELLER_PACK_META.path) || "—")}</code>
+        · <code>input_mode: ${esc(svc.input_mode || "—")}</code>
+      </p>
+      ${banners}
+    </div>
+
+    <div class="card">
+      <div class="section-title first">Identidade do vendedor</div>
+      <div class="inp-grid">
+        <div class="inp-slot"><h3>Provider</h3><div class="slot-code">SVC_PROVIDER_IDENTITY</div>${renderBulletList(svc.SVC_PROVIDER_IDENTITY)}</div>
+        <div class="inp-slot"><h3>Ofertas por vertical</h3><div class="slot-code">SVC_OFFERINGS_BY_VERTICAL</div>${renderBulletList(svc.SVC_OFFERINGS_BY_VERTICAL)}</div>
+        <div class="inp-slot"><h3>Keywords</h3><div class="slot-code">SVC_KEYWORDS</div>${renderBulletList(svc.SVC_KEYWORDS)}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title first">ICP / Personas targeting</div>
+      <div class="inp-slot">${renderBulletList(svc.SVC_PERSONA_TARGETING)}</div>
+    </div>
+
+    <div class="card">
+      <div class="section-title first">Dores que o vendedor ataca</div>
+      <div class="inp-slot"><div class="slot-code">SVC_CORE_PROBLEM_FOCUS</div>${renderBulletList(svc.SVC_CORE_PROBLEM_FOCUS)}</div>
+    </div>
+
+    <div class="card">
+      <div class="section-title first">Soluções / UVP</div>
+      <div class="inp-slot" style="margin-bottom:14px"><h3>Soluções core</h3><div class="slot-code">SVC_CORE_SOLUTIONS</div>${renderBulletList(svc.SVC_CORE_SOLUTIONS)}</div>
+      <div class="section-title">UVP arsenal (por persona)</div>
+      <div class="inp-grid">${uvpBlocks || '<p class="missing">Sem blocos UVP</p>'}</div>
+    </div>
+
+    <div class="card">
+      <div class="section-title first">Cases + provas / KPIs</div>
+      <table class="inp-table">
+        <tr><th>Case / segmento</th><th>Need</th><th>Solution</th><th>Impact · verificação</th></tr>
+        ${caseBlocks || '<tr><td colspan="4" class="missing">Sem cases</td></tr>'}
+      </table>
+      <p style="margin:12px 0 0;font-size:12px;color:var(--muted)">
+        Provas tipadas com <code>allowed_for_copy</code> / <code>verification_status</code> só entram via <code>SVC_ASSETS</code>
+        (tipos case / kpi / numero_verificavel). Neste pack os impacts estão em texto livre${assetsKeyPresent ? "" : " e o slot tipado falta"}.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="section-title first">Credenciais
+        ${hasCred ? '<span class="badge-gap ok" style="margin-left:8px">presente</span>' : '<span class="badge-gap bad" style="margin-left:8px">GAP</span>'}
+      </div>
+      ${hasCred
+        ? `<table class="inp-table"><tr><th>Valor</th><th>Status</th><th>Copy</th></tr>` +
+          creds.map(c => `<tr><td>${esc(c.value)}</td><td>${esc(c.verification_status||"—")}</td>
+            <td>${c.allowed_for_copy ? "allowed" : "blocked"}</td></tr>`).join("") + `</table>`
+        : `<div class="gap-banner bad" style="margin:0">Nenhuma credencial nomeada no pack.
+            Para serviços financeiros, isso é gap de autoridade no P2 das mensagens.</div>`}
+    </div>
+
+    <div class="card">
+      <div class="section-title first">SVC_ASSETS[] tipados
+        ${!assetsKeyPresent ? '<span class="badge-gap bad" style="margin-left:8px">slot ausente</span>'
+          : (assets.length ? `<span class="badge-gap ok" style="margin-left:8px">${assets.length} itens</span>`
+            : '<span class="badge-gap warn" style="margin-left:8px">vazio</span>')}
+      </div>
+      ${assetsHtml}
+    </div>
+
+    <div class="card">
+      <div class="section-title first">Lentes / pesquisa / linguagem</div>
+      <div class="inp-grid">
+        <div class="inp-slot"><h3>Research focus</h3>${renderBulletList(svc.SVC_RESEARCH_FOCUS_AREAS)}</div>
+        <div class="inp-slot"><h3>Strategic lens</h3>${renderBulletList(svc.SVC_STRATEGIC_LENS)}</div>
+        <div class="inp-slot"><h3>Case match drivers</h3>${renderBulletList(svc.SVC_CASE_MATCH_DRIVERS)}</div>
+        <div class="inp-slot"><h3>Language rules</h3>${renderBulletList(svc.SVC_LANGUAGE_RULES)}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title first">Meta · confirmação · gaps</div>
+      <table class="inp-table">
+        <tr><th>Campo</th><th>Valor</th></tr>
+        <tr><td>input_mode</td><td><code>${esc(svc.input_mode || "—")}</code></td></tr>
+        <tr><td>confirmed_by_user</td><td>${confirmed
+          ? '<span class="badge-gap ok">true</span>'
+          : '<span class="badge-gap warn">false</span>'}</td></tr>
+        <tr><td>confirmed_at</td><td>${esc(conf.confirmed_at || "null")}</td></tr>
+        <tr><td>slots_pending_confirmation</td><td>${(conf.slots_pending_confirmation||[]).map(s=>`<code>${esc(s)}</code>`).join(", ") || "—"}</td></tr>
+        <tr><td>missing_policy</td><td>${esc(meta.missing_policy || "—")}</td></tr>
+        <tr><td>determinism_notes</td><td>${esc(meta.determinism_notes || "—")}</td></tr>
+        <tr><td>confirmation.notes</td><td style="font-size:12px">${esc(conf.notes || "—")}</td></tr>
+        <tr><td>pack path</td><td><code>${esc((typeof SELLER_PACK_META !== "undefined" && SELLER_PACK_META.path) || "—")}</code></td></tr>
+      </table>
+    </div>
+  `;
+}
+
+function setNavActive(hash) {
+  document.querySelectorAll("[data-nav]").forEach(a => {
+    a.classList.toggle("active-nav", a.getAttribute("data-nav") === hash);
+  });
+}
+
 function route() {
   const hash = (location.hash || "#home").replace(/^#/, "");
   const list = document.getElementById("view-list");
   const detail = document.getElementById("view-detail");
+  const inputs = document.getElementById("view-inputs");
   const back = document.getElementById("btn-back");
   const company = RUN.companies.find(c => c.id === hash);
+  const appendix = document.getElementById("params");
+
+  if (hash === "inputs") {
+    renderInputs();
+    list.classList.remove("active");
+    detail.classList.remove("active");
+    if (inputs) inputs.classList.add("active");
+    back.style.display = "none";
+    setNavActive("inputs");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  if (inputs) inputs.classList.remove("active");
 
   if (hash === "params") {
     list.classList.add("active");
     detail.classList.remove("active");
     back.style.display = "none";
-    document.getElementById("params").scrollIntoView({ behavior: "smooth" });
+    setNavActive("params");
+    if (appendix) appendix.scrollIntoView({ behavior: "smooth" });
     return;
   }
 
@@ -6698,6 +7062,7 @@ function route() {
     list.classList.remove("active");
     detail.classList.add("active");
     back.style.display = "";
+    setNavActive("home");
     setTimeout(() => {
       const el = document.getElementById(companyFromCrit.id + "-criterios");
       if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -6710,11 +7075,13 @@ function route() {
     list.classList.remove("active");
     detail.classList.add("active");
     back.style.display = "inline-flex";
+    setNavActive("home");
     window.scrollTo({ top: 0, behavior: "smooth" });
   } else {
     list.classList.add("active");
     detail.classList.remove("active");
     back.style.display = "none";
+    setNavActive("home");
   }
 }
 
